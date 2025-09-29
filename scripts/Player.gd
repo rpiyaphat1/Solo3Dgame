@@ -34,6 +34,9 @@ const AT_BLEND_PARAM := "parameters/locomotion/blend_position"
 const AP_IDLE := "idle"
 const AP_WALK := "walk"
 
+# โมเดลหันหลัง → ชดเชยด้วยการหมุน 180°
+const MODEL_YAW_OFFSET := PI
+
 # ---------- State ----------
 var yaw := 0.0
 var pitch := 0.0
@@ -63,6 +66,9 @@ func _ready() -> void:
 	if menu:
 		menu.visible = false
 
+	# ชดเชยทิศเริ่มต้นของโมเดล
+	body_model.rotation.y += MODEL_YAW_OFFSET
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and not _menu_open:
 		_mouse_dx += event.relative.x
@@ -74,10 +80,11 @@ func _input(event: InputEvent) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		_toggle_menu()
-		get_viewport().set_input_as_handled()  # << เปลี่ยนบรรทัดนี้ฃ
+		get_viewport().set_input_as_handled()
 
 func _physics_process(delta: float) -> void:
 	# ---- อัปเดตหัว/คอในฟิสิกส์ (กันสั่น) ----
+	
 	if not _menu_open and (_mouse_dx != 0.0 or _mouse_dy != 0.0):
 		yaw   -= _mouse_dx * MOUSE_SENS
 		pitch -= _mouse_dy * MOUSE_SENS
@@ -108,7 +115,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	# ---- ลำตัวค่อย ๆ หันตามหัว (ดีเลย์ ~0.2s) ----
-	body_model.rotation.y = lerp_angle(body_model.rotation.y, head.rotation.y, delta * BODY_TURN_SPEED)
+	var target_yaw := head.rotation.y + MODEL_YAW_OFFSET
+	body_model.rotation.y = lerp_angle(body_model.rotation.y, target_yaw, delta * BODY_TURN_SPEED)
 
 	# ---- อนิเมชัน ----
 	var move_amount := dir.length()
@@ -120,6 +128,16 @@ func _physics_process(delta: float) -> void:
 		var target := (AP_WALK if move_amount > 0.1 else AP_IDLE)
 		if anim_player.current_animation != target:
 			anim_player.play(target)
+			
+	for index in range(get_slide_collision_count()):
+		# We get one of the collisions with the player
+		var collision = get_slide_collision(index)
+
+		# If the collision is with ground
+		if collision.get_collider() == null:
+			continue
+			
+	move_and_slide()
 
 	# ---- ไฟฉายตามหัว ----
 	_flashlight_follow(delta)
@@ -168,7 +186,6 @@ func _ensure_menu_ref() -> void:
 	if menu: return
 	var root := get_tree().current_scene
 	if root:
-		# หา node ชื่อ "Menu" ถ้ามีในฉาก (กรณีวางไว้แล้ว)
 		var found := root.find_child("Menu", true, false)
 		if found is CanvasLayer:
 			menu = found

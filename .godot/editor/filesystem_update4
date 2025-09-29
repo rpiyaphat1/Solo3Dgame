@@ -1,6 +1,5 @@
 res://default_env.tres
 res://scenes/House.tscn
 res://scenes/Player.tscn
-res://scripts/Player.gd
-res://menu.gd
 res://menu.tscn
+res://scripts/Player.gd

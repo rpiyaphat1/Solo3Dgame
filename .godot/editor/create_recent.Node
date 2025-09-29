@@ -1,7 +1,14 @@
+MeshInstance3D
+CollisionShape3D
+StaticBody3D
+Area3D
+RigidBody3D
+SubViewport
+Camera3D
+CSGBox3D
+CSGMesh3D
 Label
 TextureRect
 RichTextLabel
 Button
 VBoxContainer
-CanvasLayer
-MeshInstance3D
