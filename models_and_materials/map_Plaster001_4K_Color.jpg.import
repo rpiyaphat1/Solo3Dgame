@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://ct2nccslkxt8n"
+path.s3tc="res://.godot/imported/map_Plaster001_4K_Color.jpg-c3e8853a2b4cfd5f2bf660a93d72bc6e.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "13dbc4e4fd14e898383df41cf7c89e52"
+}
+
+[deps]
+
+source_file="res://models_and_materials/map_Plaster001_4K_Color.jpg"
+dest_files=["res://.godot/imported/map_Plaster001_4K_Color.jpg-c3e8853a2b4cfd5f2bf660a93d72bc6e.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

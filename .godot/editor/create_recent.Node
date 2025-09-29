@@ -1,0 +1,7 @@
+Label
+TextureRect
+RichTextLabel
+Button
+VBoxContainer
+CanvasLayer
+MeshInstance3D

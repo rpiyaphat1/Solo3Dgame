@@ -1,0 +1,14 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+background_mode = 1
+tonemap_mode = 2
+ss_reflections_fade_in = 2.31824
+ss_reflections_fade_out = 0.965936
+ss_reflections_roughness = false
+ssao_intensity = 0.0
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 1.07
+glow_blend_mode = 0
+glow_bicubic_upscale = true
